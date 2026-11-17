@@ -72,6 +72,16 @@ check("The payment screen offers UPI and card", () => {
   if (missing.length) return `The payment screen does not offer: ${missing.join(" and ")}. Customers must be able to pay by UPI and by card.`;
 });
 
+check("F3: PayKaro reassurance is visible on the payment screen", () => {
+  if (!pay.PAYMENT_NOTE || !/PayKaro/i.test(pay.PAYMENT_NOTE)) {
+    return "The PayKaro reassurance note is missing from payment.js.";
+  }
+  const html = render.renderPayment(pay.PAYMENT_METHODS, pay.PAYMENT_NOTE);
+  if (!html.includes(pay.PAYMENT_NOTE) || !/class="pay-note"/.test(html)) {
+    return "The PayKaro reassurance note is not rendered on the payment screen.";
+  }
+});
+
 // ---------- CR1: veg / non-veg tag (switches on when any dish has a veg field) ----------
 
 const cr1Started = MENU.some((i) => Object.prototype.hasOwnProperty.call(i, "veg"));
