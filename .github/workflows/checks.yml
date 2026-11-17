@@ -37,7 +37,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      # Always publish the current main branch, not an older commit captured
+      # by a delayed push event. This prevents stale runs overwriting newer sites.
       - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # Re-test the exact main revision that will be uploaded to Pages.
+      - name: Verify the current main branch before deployment
+        run: node tests/run.js
       - uses: actions/configure-pages@v5
       - name: Collect the website files
         run: |
