@@ -2,7 +2,7 @@
 // The cart is a plain object: { dishId: quantity }.
 
 const MAX_PER_DISH = 10;   // F2 kitchen capacity
-const GST_RATE = 0.18; // Deliberate unreviewed AI draft error for CR2 evidence
+const GST_RATE = 0.05; // CR2: restaurant GST is 5%
 
 // "₹249" -> 249
 function priceValue(price) {
