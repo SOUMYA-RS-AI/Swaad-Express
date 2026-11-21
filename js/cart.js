@@ -2,6 +2,7 @@
 // The cart is a plain object: { dishId: quantity }.
 
 const MAX_PER_DISH = 10;   // F2 kitchen capacity
+const GST_RATE = 0.05; // CR2: restaurant GST is 5%
 
 // "₹249" -> 249
 function priceValue(price) {
@@ -36,7 +37,7 @@ function cartTotal(cart, menu) {
 // CR2: GST is calculated at 5% and rounded to two decimal places.
 function billSummary(cart, menu) {
   const food = cartTotal(cart, menu);
-  const gstRate = 0.05;
+  const gstRate = GST_RATE;
   const gst = Math.round((food * gstRate + Number.EPSILON) * 100) / 100;
   const total = Math.round((food + gst + Number.EPSILON) * 100) / 100;
   return { food, gstRate, gst, total };
